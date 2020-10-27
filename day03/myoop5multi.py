@@ -1,3 +1,4 @@
+from day03.myoop import Animal
 class Animal:
     def __init__(self):
         self.age = 1
@@ -7,6 +8,7 @@ class Animal:
         
 class God :
     def __init__(self):
+       
         self.sprit_power = 1;
     def goToGeryong(self):
         self.sprit_power += 10;
@@ -15,7 +17,9 @@ class God :
 
 class Human(Animal,God):
     def __init__(self):
-        super().__init__()
+        Animal.__init__(self)
+        God.__init__(self)
+             
         self.money_power = 1000000000000
     def earnMoney(self, i = "none"):
         
@@ -27,6 +31,8 @@ class Human(Animal,God):
     def getOld(self):
         self.age += 2
     
+    def __str__(self):
+        return  str(self.age) +" : "+ str(self.money_power) +" : "+ str(self.sprit_power) 
         
         
 if __name__ == '__main__':
@@ -35,6 +41,9 @@ if __name__ == '__main__':
     
     a = Human();
     
-    print(a.sprit_power);
     
+    a.goToGeryong();
+   
+    
+    print(a)
     
