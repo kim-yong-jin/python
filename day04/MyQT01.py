@@ -10,8 +10,8 @@ class WindowClass(QMainWindow, form_class):
     def __init__(self): 
         super().__init__() 
         self.setupUi(self) 
+      
         self.pb.clicked.connect((self.btn_clicked))
-        
     def btn_clicked(self):
         self.lbl.setText("든든하지않다")
         

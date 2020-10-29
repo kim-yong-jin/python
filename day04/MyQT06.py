@@ -14,8 +14,8 @@ class WindowClass(QMainWindow, form_class):
         
         pblist = [self.pb,self.pb_2, self.pb_3,self.pb_4,self.pb_5, self.pb_6, self.pb_7,
                   self.pb_8, self.pb_9,self.pb_10]
-        self.pb_11.clicked.connect((self.btn_clicked11))
-        self.pb_12.clicked.connect((self.btn_clicked12))
+        self.pb_11.clicked.connect((self.btn_clicked11)) #call button
+        self.pb_12.clicked.connect((self.btn_clicked12)) #reset button
 
         
         for i in pblist :

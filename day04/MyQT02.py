@@ -13,16 +13,12 @@ class WindowClass(QMainWindow, form_class):
         self.pb.clicked.connect((self.btn_clicked))
         
     def btn_clicked(self):
-       
-        temp = int(self.lbl.text()) 
+        temp = int(self.lbl.text())
         
         temp += 1
         
-        
         self.lbl.setText(str(temp))
-        
-        
-        
+      
 if __name__ == "__main__": 
     app = QApplication(sys.argv) 
     myWindow = WindowClass() 
