@@ -2,8 +2,9 @@
 
 import sys
 
-from PyQt5 import uic
-from PyQt5.Qt import QMainWindow, QApplication, QGridLayout, QPixmap, QLabel
+from PyQt5 import uic, QtWidgets, QtCore, QtGui
+from PyQt5.Qt import QMainWindow, QApplication
+
 
 
 form_class = uic.loadUiType("omok.ui")[0]
@@ -11,6 +12,7 @@ form_class = uic.loadUiType("omok.ui")[0]
 class MyWindow(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
+        self.setupUi(self)
         
         self.arr2D = [[0,0,0,0,2,  0,0,0,0,2],
                       [0,1,0,0,0,  0,1,0,0,0],
@@ -24,9 +26,24 @@ class MyWindow(QMainWindow, form_class):
                       [0,0,0,0,0,  0,0,0,0,0],
                       [0,0,0,0,0,  0,0,0,0,0]]
         
-        self.setupUi(self)
+        self.lbl2D = []
+       
+        for i in range(10) :
+            line = []
+           
+            for j in range(10):
+                label = QtWidgets.QLabel(self)
+                label.setGeometry(QtCore.QRect(j*40,i*40,40,40))
+                label.setPixmap(QtGui.QPixmap("0.png"))
+                line.append(label)
+                j +=1
+            self.lbl2D.append(line)
+            i += 1
+            
         
         
+        
+       
         self.pb.clicked.connect(self.btn_clicked)
         self.myrender()
     
@@ -42,20 +59,19 @@ class MyWindow(QMainWindow, form_class):
     
     def myrender(self):
         
-        for i in range(0,10):
+      
+        
+        for i in range(10):
             
-            for j in range(0,10):
-                lbl_img = QLabel() # 새로운 객체 생성
-                
+            for j in range(10):
                 if self.arr2D[i][j] == 0 :
-                    lbl_img.setPixmap(self.lbl1.pixmap())  # 바둑판
-                elif self.arr2D[i][j] == 1 :
-                    lbl_img.setPixmap(self.lbl2.pixmap())  # 수지
-                elif self.arr2D[i][j] == 2 :
-                    lbl_img.setPixmap(self.lbl3.pixmap())  # 남주혁
-                self.gridLayout.addWidget(lbl_img, i, j)   # 생성된 객체를 레이아웃안에 넣는다 
-
-
+                    self.lbl2D[i][j].setPixmap(QtGui.QPixmap("0.png"))
+                if self.arr2D[i][j] == 1 :
+                    self.lbl2D[i][j].setPixmap(QtGui.QPixmap("1.png"))    
+                if self.arr2D[i][j] == 2 :
+                    self.lbl2D[i][j].setPixmap(QtGui.QPixmap("2.png"))
+                
+           
 
                 
 if __name__ == "__main__":
