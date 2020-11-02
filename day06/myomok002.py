@@ -2,13 +2,14 @@ from os.path import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import uic, QtGui, QtWidgets
 
-from PyQt5.Qt import QSize
+from PyQt5.Qt import QSize, QMessageBox
 from dask.dataframe.tests.test_rolling import idx
 from sqlalchemy.dialects.mssql.base import try_cast
 
 from_class = uic.loadUiType("omok.ui")[0]
 
 class MyWindow(QMainWindow, from_class):
+    
     def __init__(self):
         super().__init__()
         self.arr2D = [
@@ -26,6 +27,7 @@ class MyWindow(QMainWindow, from_class):
         self.setupUi(self)
         self.btn2D = []
         self.flagturn = True
+        self.flag_ = True
         for i in range(len(self.arr2D)):
             line = []
             for j in range(len(self.arr2D[i])):
@@ -37,8 +39,19 @@ class MyWindow(QMainWindow, from_class):
                 btn.clicked.connect(self.btn_clicked)
                 line.append(btn)
             self.btn2D.append(line)
+        self.pb.clicked.connect(self.pb_clicked)
+            
+    def pb_clicked(self) :    
+        for i in range(len(self.arr2D)):
+            for j in range(len(self.arr2D[i])) :
+                self.arr2D[i][j] = 0
+            self.myrender()
+            self.flagturn =True
+            self.flag_ = True
+            
         
-        
+            
+        QMessageBox.about(self,"Omok","다시게임하세요")    
     def myrender(self):
         for i in range(len(self.arr2D)):
             for j in range(len(self.arr2D[i])):
@@ -53,10 +66,13 @@ class MyWindow(QMainWindow, from_class):
             
     def btn_clicked(self):
         txt = self.sender().accessibleName()
+       
         ijinfo = txt.split(",")
         ii = int(ijinfo[0])
         jj = int(ijinfo[1])
         
+        if self.flag_ == False :
+            return
         if self.arr2D[ii][jj] > 0:
             return
         
@@ -78,10 +94,23 @@ class MyWindow(QMainWindow, from_class):
 
         cntUl = self.getUl(ii,jj,idx_stone)
         cntUR = self.getUR(ii,jj,idx_stone)
-#         
+         
         cntDL = self.getDL(ii,jj,idx_stone)
         cntDR = self.getDR(ii,jj,idx_stone)
-        print("cntDR : ", cntDR)
+        print("cntUp : ", cntUp,"cntDw : ", cntDw)
+       
+        cnt01 = cntUp + cntDw + 1;
+        cnt02 = cntLe + cntRi + 1;
+        cnt03 = cntUl + cntDR + 1;
+        cnt04 = cntUR + cntDL + 1;
+        
+        if cnt01 == 5 or cnt02 == 5 or cnt03 ==5 or cnt04 == 5 :
+            if self.flagturn :
+                QMessageBox.about(self,"Omok","백돌이 이겼습니다")
+               
+            else : 
+                QMessageBox.about(self,"Omok","흑돌이 이겼습니다")
+            self.flag_ = False    
         
         self.flagturn = not self.flagturn
     def getDR(self,i,j,idx):
