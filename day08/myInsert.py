@@ -9,7 +9,7 @@ curs = conn.cursor()
  
 
 # SQL문 실행
-sql = "select * from foodstore"
+sql = "INSERT INTO mytable (col2,col3) VALUES('용진용진','용진용진')"
 curs.execute(sql)
 
  
@@ -24,4 +24,5 @@ for i in rows:
 
 
 # Connection 닫기
+conn.commit()
 conn.close()
