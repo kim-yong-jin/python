@@ -3,7 +3,7 @@ import sys
 import urllib.request
 client_id = "G_sX4slTTCXNYJYySNWT"
 client_secret = "TNZUZLg5eQ"
-encText = urllib.parse.quote("이수")
+encText = urllib.parse.quote("대전맛집")
 url = "https://openapi.naver.com/v1/search/blog?query=" + encText # json 결과
 #url = "https://openapi.naver.com/v1/search/blog.xml?query=" + encText # xml 결과
 request = urllib.request.Request(url)

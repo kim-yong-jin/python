@@ -4,7 +4,7 @@ import urllib.request
 import requests
 from bs4 import BeautifulSoup
 import pymysql
-import re
+
 
 conn = pymysql.connect(host='localhost', user='root', password='java',
                         db='python', charset='utf8')
@@ -21,7 +21,7 @@ response = urllib.request.urlopen(request)
 rescode = response.getcode()
 if(rescode==200):
     response_body = response.read()
-    soup = BeautifulSoup(response_body.decode('utf-8'),'lxml')
+    soup = BeautifulSoup(response_body.decode('utf-8'),'xml')
    
     curs = conn.cursor()
     
