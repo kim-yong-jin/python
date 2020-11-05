@@ -42,7 +42,7 @@ class WindowClass(QMainWindow, form_class):
                 print("현재가 :" ,now_price)
                 print("-------------------------------")
                 self.curs.execute(self.sql, (self.conpany_name,self.company_codes,now_price,now))
-            time.sleep(1)
+            time.sleep(50)
             self.conn.commit()
       
        
