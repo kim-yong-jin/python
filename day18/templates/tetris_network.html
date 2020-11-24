@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TETRIS_____</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script type="text/javascript">
+	var list_attend = [];
+	function fn_attend(){
+		var myname = $("#myname").val();
+		sock.send("attend:"+myname);
+	}
+	
+	function fn_start(){
+		sock.send("start");
+	}
+	
+	function mysend(){
+		sock.send("여러분 부자되세요...");
+	}	
+	function mylistrender(){
+		var names		= document.getElementsByClassName("names");
+		var canvases	= document.getElementsByClassName("canvases");
+		
+		for(var i=0;i<list_attend.length;i++){
+			names[i].innerHTML = list_attend[i].username;
+		}
+		
+	}	
+	
+	
+	var sock = io.connect('http://192.168.43.123:9999');
+	$(document).ready(function() {
+		sock.on('connect', function() {
+			var connect_string = 'new_connect';
+			sock.send(connect_string);
+		});
+
+		sock.on('message', function(msg) {
+			console.log(msg);
+			if(msg.type == "normal"){
+				var messages = msg.message.split(":");
+				if(messages[0] == "start"){
+					flag_ing = true;
+				}
+				if(messages[0] == "attend"){
+					merge_username(messages[1]);
+					mylistrender();
+				}
+				
+				if(messages[0] == "disp"){
+					var idx = 
+					
+					myCanve
+				}
+			}
+		});
+
+	});
+	function myCanvasRender(idx,data){
+		var canvases = document.getElementByClassName("canvases");
+		canvases[idx];
+		
+		 var data =  "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0"
+		      var datas = data.split(",");
+		      var canvas = document.getElementById("canvas");
+		      if (canvas.getContext) {
+		        var ctx = canvas.getContext("2d");
+
+		       for(var i = 0; i < 23; i++){
+		    	   for(var j = 0; j < 10; j++){
+		    		   var seq = i * 10 + j;
+		    		   
+		    		   if(datas[seq] == 0){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 1){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 2){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 3){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 4){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 5){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 6){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   if(datas[seq] == 7){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+		    		   
+		    		   if(datas[seq] == 11){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    		   if(datas[seq] == 12){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    		   if(datas[seq] == 13){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    		   if(datas[seq] == 14){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    		   if(datas[seq] == 15){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    		   if(datas[seq] == 16){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    		   if(datas[seq] == 17){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+		    	       ctx.fillRect (5*j, 5*i, 4, 4);
+		    	   }
+		       }
+
+		       
+		      }
+	}
+	function merge_username(p_username){
+		var idx = -1;
+		for(var i=0;i<list_attend.length;i++){
+			if(list_attend[i].username == p_username){
+				idx = i;
+				break;
+			}
+		}
+		if(idx == -1){
+			list_attend.push({'username':p_username,'disp_data':''});
+		} else {
+			list_attend[idx].username = p_username;
+		}
+		
+		
+	}
+</script>
+<script type="text/javascript">
+var block2D =[ 
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]
+];
+var stack2D =[ 
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]
+];
+var print2D =[ 
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]
+];
+
+var block = {
+	kind : 1,
+	status : 0,
+	i : 2,
+	j : 4
+}
+
+var flag_ing = false;
+
+function setBlock2DByBlock(){
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			print2D[i][j]=0;
+			block2D[i][j]=0;
+		}
+	}
+	
+	if(block.kind == 1){
+		block2D[block.i  ][block.j  ] = block.kind;
+		block2D[block.i  ][block.j+1] = block.kind;
+		block2D[block.i+1][block.j  ] = block.kind;
+		block2D[block.i+1][block.j+1] = block.kind;
+	}	
+	
+	if(block.kind == 2){
+		block2D[block.i  ][block.j  ] = block.kind;
+		if(block.status == 0){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i+1][block.j-1] = block.kind;
+		}
+		else if(block.status == 1){
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j+1] = block.kind;
+		}
+	}	
+	
+	if(block.kind == 3){
+		block2D[block.i  ][block.j  ] = block.kind;
+		if(block.status == 0){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i+1][block.j+1] = block.kind;
+		}
+		else if(block.status == 1){
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i+1][block.j-1] = block.kind;
+		}
+	}	
+	
+	if(block.kind == 4){
+		block2D[block.i  ][block.j  ] = block.kind;
+		if(block.status == 0){
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i  ][block.j-2] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+		}
+		else if(block.status == 1){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i-2][block.j  ] = block.kind;
+		}
+	}	
+	
+	if(block.kind == 5){
+		block2D[block.i][block.j] = block.kind;
+		if(block.status == 0){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i  ][block.j-1] = block.kind;
+		}
+		else if(block.status == 1){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+		}
+		else if(block.status == 2){
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i  ][block.j-1] = block.kind;
+		}
+		else if(block.status == 3){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i  ][block.j-1] = block.kind;
+		}
+	}	
+	
+	
+	if(block.kind == 6){
+		block2D[block.i][block.j] = block.kind;
+		if(block.status == 0){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i-1][block.j-1] = block.kind;
+		}
+		else if(block.status == 1){
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i-1][block.j+1] = block.kind;
+		}
+		else if(block.status == 2){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j+1] = block.kind;
+		}
+		else if(block.status == 3){
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i+1][block.j-1] = block.kind;
+		}
+	}	
+	
+	
+	if(block.kind == 7){
+		block2D[block.i][block.j] = block.kind;
+		if(block.status == 0){
+			block2D[block.i-1][block.j+1] = block.kind;
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+		}
+		else if(block.status == 1){
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i+1][block.j+1] = block.kind;
+		}
+		else if(block.status == 2){
+			block2D[block.i-1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j  ] = block.kind;
+			block2D[block.i+1][block.j-1] = block.kind;
+		}
+		else if(block.status == 3){
+			block2D[block.i  ][block.j-1] = block.kind;
+			block2D[block.i  ][block.j+1] = block.kind;
+			block2D[block.i-1][block.j-1] = block.kind;
+		}
+	}	
+}
+
+var timeid = null;
+function init(){
+	window.addEventListener('keydown', function(e){
+		mykeytype(e);
+	});	
+	
+	timeid = setInterval(myrepeat, 1000);
+}
+function myrepeat(){
+	mytypeCode(40);
+}
+
+
+function mykeytype(e){
+	mytypeCode(e.keyCode)
+}
+
+function mytypeCode(keyCode){
+	if(!flag_ing){
+		return;
+	}
+	
+	var flagDown = false;
+	pre_i		= block.i;
+	pre_j		= block.j;
+	pre_status	= block.status;
+	
+	//아래 40 좌 37 우 39 위 38
+	if(keyCode == 40){
+		block.i++;
+		flagDown = true;
+	}
+	if(keyCode == 39){
+		block.j++;
+	}	
+	if(keyCode == 38){
+		changeStatus();
+	}	
+	if(keyCode == 37){
+		block.j--;
+	}	
+	
+	try{
+		setBlock2DByBlock();
+	} catch (e) {
+		
+	}
+	
+	var flagOut = isOut();
+	var flagCrash = isCrash();
+	console.log("flagCrash:"+flagCrash)
+	if(flagOut || flagCrash){
+		block.i			=pre_i;
+		block.j			=pre_j;
+		block.status	=pre_status;
+		setBlock2DByBlock();
+		if(flagDown){
+			moveBlock2Stack();
+			
+			if(	stack2D[5][0]>0 ||
+				stack2D[5][1]>0 ||
+				stack2D[5][2]>0 ||
+				stack2D[5][3]>0 ||
+				stack2D[5][4]>0 ||
+				stack2D[5][5]>0 ||
+				stack2D[5][6]>0 ||
+				stack2D[5][7]>0 ||
+				stack2D[5][8]>0 ||
+				stack2D[5][9]>0){
+				alert("you lose");
+				flag_ing = false;
+			}
+			
+			var cnt10 = remove10();
+			if(cnt10>0){
+				var str_mission_cnt = document.getElementById("mission_cnt").innerHTML;
+				var int_mission_cnt = parseInt(str_mission_cnt);
+				int_mission_cnt -= cnt10;
+				if(int_mission_cnt<=0){
+					alert("you win");
+					flag_ing = false;
+				}
+				document.getElementById("mission_cnt").innerHTML = int_mission_cnt+"";
+				
+			}
+			
+			block.status = 0;
+			block.i = 2;
+			block.j = 4;
+			setBlock2DByBlock();
+		}
+	}
+	
+	setPrint2DByBlockStack();
+	myrender();
+	console.log(block2D)
+	console.log(stack2D)
+	console.log(print2D)
+}
+
+function remove10(){
+	var arrTemp = [];
+	var cnt10 = 0;
+	for(var i=0;i<stack2D.length;i++){
+		if(	stack2D[i][0]>0 &&
+			stack2D[i][1]>0 &&
+			stack2D[i][2]>0 &&
+			stack2D[i][3]>0 &&
+			stack2D[i][4]>0 &&
+			
+			stack2D[i][5]>0 &&
+			stack2D[i][6]>0 &&
+			stack2D[i][7]>0 &&
+			stack2D[i][8]>0 &&
+			stack2D[i][9]>0){
+			cnt10++;
+		} else {
+			arrTemp.push(stack2D[i]+"");
+		}
+	}
+	for(var i=0;i<cnt10;i++){
+		arrTemp.unshift("0,0,0,0,0,0,0,0,0,0");
+	}
+	
+	for(var i=0;i<arrTemp.length;i++){
+		var str_line = arrTemp[i];
+		var arr_line = str_line.split(",");
+		stack2D[i][0]=arr_line[0];
+		stack2D[i][1]=arr_line[1];
+		stack2D[i][2]=arr_line[2];
+		stack2D[i][3]=arr_line[3];
+		stack2D[i][4]=arr_line[4];
+		
+		stack2D[i][5]=arr_line[5];
+		stack2D[i][6]=arr_line[6];
+		stack2D[i][7]=arr_line[7];
+		stack2D[i][8]=arr_line[8];
+		stack2D[i][9]=arr_line[9];
+		
+	}	
+	
+	return cnt10;
+	
+	
+}
+
+function moveBlock2Stack(){
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			if(block2D[i][j]>0 ){
+				stack2D[i][j] = block2D[i][j]+10;
+			}
+		}
+	}
+}
+
+function isCrash(){
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			if(block2D[i][j]>0 && stack2D[i][j]>0){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+function isOut(){
+	var cnt = 0;
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			if(block2D[i][j]>0){
+				cnt++;
+			}
+		}
+	}
+	if(cnt == 4){
+		return false;
+	} else {
+		return true;
+	}
+	
+}
+
+function changeStatus(){
+	if(block.kind == 1){
+		
+	}
+	
+	if(block.kind == 2 || block.kind == 3 || block.kind == 4){
+		if(block.status == 0){
+			block.status = 1;
+		}else if(block.status == 1){
+			block.status = 0;
+		}	
+	}	
+	
+	if(block.kind == 5 || block.kind == 6 || block.kind == 7){
+		if(block.status == 0){
+			block.status = 1;
+		}else if(block.status == 1){
+			block.status = 2;
+		}else if(block.status == 2){
+			block.status = 3;
+		}else if(block.status == 3){
+			block.status = 0;
+		}
+		
+	}		
+}
+
+function myrender(){
+	var arrTd = document.getElementsByClassName("tt");
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			var idx = i*10 + j;
+			if(print2D[i][j] == 0) arrTd[idx].style.background = '#ffffff';
+			
+			if(print2D[i][j] == 1) arrTd[idx].style.background = '#ff0000';
+			if(print2D[i][j] == 2) arrTd[idx].style.background = '#ef0000';
+			if(print2D[i][j] == 3) arrTd[idx].style.background = '#df0000';
+			if(print2D[i][j] == 4) arrTd[idx].style.background = '#cf0000';
+			if(print2D[i][j] == 5) arrTd[idx].style.background = '#bf0000';
+			if(print2D[i][j] == 6) arrTd[idx].style.background = '#af0000';
+			if(print2D[i][j] == 7) arrTd[idx].style.background = '#9f0000';
+			
+			if(print2D[i][j] == 11) arrTd[idx].style.background = '#0000ff';
+			if(print2D[i][j] == 12) arrTd[idx].style.background = '#0000ef';
+			if(print2D[i][j] == 13) arrTd[idx].style.background = '#0000df';
+			if(print2D[i][j] == 14) arrTd[idx].style.background = '#0000cf';
+			if(print2D[i][j] == 15) arrTd[idx].style.background = '#0000bf';
+			if(print2D[i][j] == 16) arrTd[idx].style.background = '#0000af';
+			if(print2D[i][j] == 17) arrTd[idx].style.background = '#00009f';
+
+		}	
+	}
+	
+	var txt_disp ="";
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			txt_disp+=print2D[i][j]+","
+		}
+	}
+	var myname = $("#myname").val();
+	sock.send("disp:"+myname+":"+txt_disp);
+	
+	
+}
+
+function setPrint2DByBlockStack(){
+	for(var i=0;i<print2D.length;i++){
+		for(var j=0;j<print2D[i].length;j++){
+			if(stack2D[i][j] > 0){
+				print2D[i][j] = stack2D[i][j];
+			}
+			if(block2D[i][j] > 0){
+				print2D[i][j] = block2D[i][j];
+			}
+		}
+	}
+}
+
+
+
+
+
+</script>
+<style type="text/css">
+td{
+ 	width: 20px;
+ 	height: 10px;
+}
+</style>
+</head>
+<body onload="init()">
+<table border="1">
+	<tr>
+		<td>
+미션 점수:<div id="mission_cnt" >2</div><br/>
+<input type="text" id="myname" /> <input type="button" onclick="fn_attend()" value="참석하기" ><br>
+<input type="button" onclick="fn_start()" value="start" >
+<table border="1px">
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+		<td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td><td class="tt">&nbsp;</td>
+	</tr>
+
+
+</table>
+		
+		
+		</td>
+		<td>
+		
+		
+<table>
+	<tr>
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+	</tr>
+	<tr>
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+	</tr>
+	<tr>
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+	</tr>
+	<tr>
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+	</tr>
+	<tr>
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+		<td> <div class="names" >__</div><canvas width="50px" height="115px" class="canvases" /> </td> 
+	</tr>				
+
+</table>
+		
+		
+		
+		</td>
+	</tr>
+</table>
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

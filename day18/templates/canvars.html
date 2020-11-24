@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <script type="application/javascript">
+    function draw() {
+      var data =  "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0"
+      var datas = data.split(",");
+      var canvas = document.getElementById("canvas");
+      if (canvas.getContext) {
+        var ctx = canvas.getContext("2d");
+
+       for(var i = 0; i < 23; i++){
+    	   for(var j = 0; j < 10; j++){
+    		   var seq = i * 10 + j;
+    		   
+    		   if(datas[seq] == 0){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 1){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 2){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 3){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 4){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 5){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 6){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   if(datas[seq] == 7){ ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; }
+    		   
+    		   if(datas[seq] == 11){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    		   if(datas[seq] == 12){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    		   if(datas[seq] == 13){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    		   if(datas[seq] == 14){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    		   if(datas[seq] == 15){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    		   if(datas[seq] == 16){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    		   if(datas[seq] == 17){ ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; }
+    	       ctx.fillRect (5*j, 5*i, 4, 4);
+    	   }
+       }
+
+       
+      }
+    }
+  </script>
+ </head>
+ <body onload="draw();">
+   <canvas id="canvas" width="50" height="115"></canvas>
+ </body>
+</html>
